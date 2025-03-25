@@ -1,0 +1,4 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 0h60v60H0z" fill="none"/>
+  <path d="M0 0h1v60H0zM10 0h1v60H10zM20 0h1v60H20zM30 0h1v60H30zM40 0h1v60H40zM50 0h1v60H50zM0 0v1h60V0zM0 10v1h60v-1zM0 20v1h60v-1zM0 30v1h60v-1zM0 40v1h60v-1zM0 50v1h60v-1z" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+</svg>
