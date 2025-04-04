@@ -75,7 +75,7 @@ const Footer = () => {
               </a>
             </div>
             <p className="max-[479px]:text-sm">
-              © Copyright 2025. All rights reserved.
+              © Copyright 2024. All rights reserved.
             </p>
           </div>
         </div>

@@ -32,7 +32,7 @@ const PartnershipsSection = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-red-500">
-              Our Valued Partnerships
+              Our Valued Clients
             </span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">

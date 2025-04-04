@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Works = () => {
+const Works = ({ id }: { id?: string }) => {
   const sliderRef = useRef<Slider>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideCount = 5; // Updated to match your project count
@@ -78,7 +78,10 @@ const Works = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-dark-blue to-black py-16 relative overflow-hidden">
+    <div
+      id={id}
+      className="bg-gradient-to-b from-dark-blue to-black py-16 relative overflow-hidden"
+    >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-purple-500 to-blue-600 blur-3xl animate-pulse-slow"></div>

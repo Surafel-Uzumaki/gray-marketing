@@ -1,23 +1,15 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Works from "@/components/Works";
 import Footer from "@/components/Footer";
-import PartnershipsSection from "@/components/WhoWeWork";
 import Texts from "@/components/texts";
 import Servicess from "@/components/servicess";
-import ContactPage from "@/components/ContactPage";
+import SponsorImage from "@/components/sponsorImage";
 export default function Home() {
   return (
     <>
-      {/* < Navbar/> */}
       <Hero />
-      <Texts />
-
-      <Works />
-
+      <Texts id="services" />
+      <SponsorImage />
       <Servicess />
-      <PartnershipsSection />
-      <ContactPage />
       <Footer />
     </>
   );
