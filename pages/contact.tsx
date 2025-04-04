@@ -1,6 +1,10 @@
 import Head from "next/head";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import dynamic from "next/dynamic";
+import ClientOnly from "../components/ClientOnly";
+
+// Dynamically import components that might use browser APIs
+const Navbar = dynamic(() => import("../components/Navbar"), { ssr: true });
+const Footer = dynamic(() => import("../components/Footer"), { ssr: true });
 
 const ContactPage = () => {
   return (
@@ -19,11 +23,13 @@ const ContactPage = () => {
         {/* Contact Content */}
         <main className="flex-grow mt-8">
           <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 py-20">
-            {/* Floating wave shapes */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-              <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-blue-200 mix-blend-multiply filter blur-xl opacity-20 animate-float1"></div>
-              <div className="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-indigo-200 mix-blend-multiply filter blur-xl opacity-20 animate-float2"></div>
-            </div>
+            {/* Floating wave shapes - wrapped in ClientOnly */}
+            <ClientOnly>
+              <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+                <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-blue-200 mix-blend-multiply filter blur-xl opacity-20 animate-float1"></div>
+                <div className="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-indigo-200 mix-blend-multiply filter blur-xl opacity-20 animate-float2"></div>
+              </div>
+            </ClientOnly>
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header */}
@@ -76,7 +82,8 @@ const ContactPage = () => {
                             Our Studio
                           </h3>
                           <p className="mt-1 text-gray-600">
-                            123 Oceanview Drive<br />
+                            123 Oceanview Drive
+                            <br />
                             Malibu, CA 90265
                           </p>
                         </div>
@@ -169,25 +176,27 @@ const ContactPage = () => {
                 </div>
 
                 {/* Right column - Map */}
-                <div className="relative h-96 lg:h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.325715672523!2d-118.6764079245309!3d34.03683727315678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e819ccc9a1c3b5%3A0xf1a21c0a4b5a8f3e!2sMalibu%20Beach!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    className="absolute inset-0"
-                  ></iframe>
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-                    <h3 className="text-white text-xl font-bold">
-                      Visit Our Studio
-                    </h3>
-                    <p className="text-white/90">
-                      123 Oceanview Drive, Malibu
-                    </p>
+                <ClientOnly>
+                  <div className="relative h-96 lg:h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.325715672523!2d-118.6764079245309!3d34.03683727315678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e819ccc9a1c3b5%3A0xf1a21c0a4b5a8f3e!2sMalibu%20Beach!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      className="absolute inset-0"
+                    ></iframe>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                      <h3 className="text-white text-xl font-bold">
+                        Visit Our Studio
+                      </h3>
+                      <p className="text-white/90">
+                        123 Oceanview Drive, Malibu
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </ClientOnly>
               </div>
             </div>
           </div>
@@ -196,32 +205,34 @@ const ContactPage = () => {
         <Footer />
       </div>
 
-      <style jsx global>{`
-        @keyframes float1 {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
+      <ClientOnly>
+        <style jsx global>{`
+          @keyframes float1 {
+            0%,
+            100% {
+              transform: translateY(0) translateX(0);
+            }
+            50% {
+              transform: translateY(-20px) translateX(10px);
+            }
           }
-          50% {
-            transform: translateY(-20px) translateX(10px);
+          @keyframes float2 {
+            0%,
+            100% {
+              transform: translateY(0) translateX(0);
+            }
+            50% {
+              transform: translateY(10px) translateX(-15px);
+            }
           }
-        }
-        @keyframes float2 {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
+          .animate-float1 {
+            animation: float1 8s ease-in-out infinite;
           }
-          50% {
-            transform: translateY(10px) translateX(-15px);
+          .animate-float2 {
+            animation: float2 10s ease-in-out infinite;
           }
-        }
-        .animate-float1 {
-          animation: float1 8s ease-in-out infinite;
-        }
-        .animate-float2 {
-          animation: float2 10s ease-in-out infinite;
-        }
-      `}</style>
+        `}</style>
+      </ClientOnly>
     </>
   );
 };
