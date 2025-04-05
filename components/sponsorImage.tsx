@@ -50,7 +50,7 @@ const SponsorImage = () => {
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover select-none"
+                className="w-full h-full object-cover select-none pl-4"
                 draggable={false}
               />
               {/* Gradient Overlay */}

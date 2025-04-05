@@ -180,7 +180,7 @@ const Services = () => {
         </div>
 
         {/* Dots indicator */}
-        <div className="flex justify-center mt-12 gap-2">
+        {/* <div className="flex justify-center mt-12 gap-2">
           {services.map((_, idx) => (
             <button
               key={idx}
@@ -189,7 +189,7 @@ const Services = () => {
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );
