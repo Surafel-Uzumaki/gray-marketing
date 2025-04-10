@@ -31,7 +31,7 @@ const Hero = () => {
       {/* Unique Navbar */}
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          scrolled ? "bg-black/90 backdrop-blur-md py-2" : "bg-transparent py-4"
+          scrolled ? "z-0 backdrop-blur-md py-2" : "z-0 py-4"
         }`}
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
@@ -123,7 +123,7 @@ const Hero = () => {
                 menuOpen ? "transform rotate-90" : ""
               }`}
             >
-              <span 
+              <span
                 className={`block h-0.5 bg-white transition-all ${
                   menuOpen ? "w-6 rotate-45 translate-y-2" : "w-6"
                 }`}
@@ -237,12 +237,12 @@ const Hero = () => {
         </button> */}
 
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-  <img
-    src="/images/ship.png"
-    alt="Ship sailing on water"
-    className="w-[15%] min-w-[40px] mx-auto object-contain"
-  />
-</div>
+          <img
+            src="/images/ship.png"
+            alt="Ship sailing on water"
+            className="w-[15%] min-w-[40px] mx-auto object-contain"
+          />
+        </div>
       </div>
     </section>
   );

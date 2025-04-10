@@ -1,27 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setIsMounted(true);
-
-    const handleScroll = () => {
-      if (typeof window !== "undefined") {
-        setScrolled(window.scrollY > 10);
-      }
-    };
-
-    if (isMounted) {
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
-  }, [isMounted]);
 
   const isActive = (href: string) => {
     if (href === "/") return router.pathname === href;
@@ -30,15 +13,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        scrolled ? "bg-black/50 backdrop-blur-md py-2" : "bg-black/90 py-4"
-      }`}
-    >
+    <nav className=" w-full z-0  bg-black/90 py-4">
       <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
-          <div className="relative">
+          <div className="">
             <span className="text-white text-2xl font-bold mr-1 group-hover:text-blue-400 transition-colors">
               GRAY'S MARKETING
             </span>

@@ -1,111 +1,184 @@
-import { useState, useEffect } from "react";
+"use client"
+
+import { useState, useEffect } from "react"
 
 const Texts = ({ id }: { id?: string }) => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    // Auto-cycle through text highlights
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % 4)
+    }, 3000)
+
+    return () => {
+      window.removeEventListener("resize", checkMobile)
+      clearInterval(interval)
+    }
+  }, [])
 
   return (
-    <div
-      id={id}
-      className="text-component relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden"
-    >
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
-        <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-blue-200 mix-blend-multiply filter blur-xl animate-float1"></div>
-        <div className="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-red-200 mix-blend-multiply filter blur-xl animate-float2"></div>
+    <div id={id} className="text-component relative min-h-screen bg-black overflow-hidden">
+      {/* Digital noise texture */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]"></div>
       </div>
 
-      <div className="relative z-10 flex justify-center items-center min-h-screen p-8">
-        <style jsx>{`
-          @keyframes float1 {
-            0%,
-            100% {
-              transform: translateY(0) translateX(0);
-            }
-            50% {
-              transform: translateY(-20px) translateX(10px);
-            }
-          }
-          @keyframes float2 {
-            0%,
-            100% {
-              transform: translateY(0) translateX(0);
-            }
-            50% {
-              transform: translateY(10px) translateX(-15px);
-            }
-          }
-          .animate-float1 {
-            animation: float1 8s ease-in-out infinite;
-          }
-          .animate-float2 {
-            animation: float2 10s ease-in-out infinite;
-          }
-        `}</style>
+      {/* Vertical line */}
+      <div className="absolute left-0 md:left-[15%] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
 
-        <div className="max-w-4xl w-full">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-red-500">
-              Redefining Sports Marketing
-            </span>
-          </h2>
-
-          <div className="space-y-8 text-lg md:text-xl text-gray-700 leading-relaxed">
-            <div className="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-blue-500 to-blue-300 before:rounded-full">
-              <p className="pl-4">
-                We are here for those who believe that change is the only
-                constant.
-              </p>
+      <div className="relative z-10 container mx-auto px-6 py-20 md:py-32">
+        <div className="max-w-5xl mx-auto">
+          {/* Header section */}
+          <div className="mb-20 md:mb-32">
+            <div className="inline-block px-3 py-1 border border-gray-800 rounded-full text-gray-400 text-sm mb-6 bg-gray-900/50 backdrop-blur-sm">
+              <span className="inline-block w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
+              Digital Marketing Evolution
             </div>
 
-            <div className="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-red-500 to-red-300 before:rounded-full">
-              <p className="pl-4">
-                Visionaries who look beyond the game as it is, to the game as it
-                could be.
-              </p>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
+              <div className="overflow-hidden">
+                <span className="block text-white transform transition-transform duration-500 translate-y-0">
+                  Redefining
+                </span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-white transform transition-transform duration-500 translate-y-0">
+                  Sports Marketing
+                </span>
+              </div>
+            </h2>
+
+            <p className="text-gray-400 text-xl max-w-2xl leading-relaxed">
+              We transform how brands connect with audiences in the digital age, creating experiences that resonate and
+              convert.
+            </p>
+          </div>
+
+          {/* Text sections with line numbers */}
+          <div className="space-y-16 md:space-y-24 relative">
+            {/* Text item 1 */}
+            <div
+              className={`group transition-all duration-500 ${activeIndex === 0 ? "opacity-100" : "opacity-60"}`}
+              onMouseEnter={() => setActiveIndex(0)}
+            >
+              <div className="flex items-start gap-6 md:gap-12">
+                <div className="flex-none">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-gray-500 font-mono text-sm">
+                    01
+                  </div>
+                  <div className="h-full w-px bg-gradient-to-b from-white/10 to-transparent mx-auto mt-2"></div>
+                </div>
+                <div className="flex-1">
+                  <p
+                    className={`text-2xl md:text-3xl font-light transition-all duration-500 ${activeIndex === 0 ? "text-white" : "text-gray-400"}`}
+                  >
+                    We are here for those who believe that{" "}
+                    <span className="font-medium">change is the only constant</span>.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-blue-500 to-blue-300 before:rounded-full">
-              <p className="pl-4">
-                Challenging conventions and redefining the rules. Those who only
-                think in opportunities.
-              </p>
+            {/* Text item 2 */}
+            <div
+              className={`group transition-all duration-500 ${activeIndex === 1 ? "opacity-100" : "opacity-60"}`}
+              onMouseEnter={() => setActiveIndex(1)}
+            >
+              <div className="flex items-start gap-6 md:gap-12">
+                <div className="flex-none">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-gray-500 font-mono text-sm">
+                    02
+                  </div>
+                  <div className="h-full w-px bg-gradient-to-b from-white/10 to-transparent mx-auto mt-2"></div>
+                </div>
+                <div className="flex-1">
+                  <p
+                    className={`text-2xl md:text-3xl font-light transition-all duration-500 ${activeIndex === 1 ? "text-white" : "text-gray-400"}`}
+                  >
+                    Visionaries who look beyond the game as it is, to{" "}
+                    <span className="font-medium">the game as it could be</span>.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="relative pl-6 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-gradient-to-b from-red-500 to-red-300 before:rounded-full">
-              <p className="pl-4">
-                Embracing the belief that the future of sports marketing isn't
-                set in stone.
-              </p>
+            {/* Text item 3 */}
+            <div
+              className={`group transition-all duration-500 ${activeIndex === 2 ? "opacity-100" : "opacity-60"}`}
+              onMouseEnter={() => setActiveIndex(2)}
+            >
+              <div className="flex items-start gap-6 md:gap-12">
+                <div className="flex-none">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-gray-500 font-mono text-sm">
+                    03
+                  </div>
+                  <div className="h-full w-px bg-gradient-to-b from-white/10 to-transparent mx-auto mt-2"></div>
+                </div>
+                <div className="flex-1">
+                  <p
+                    className={`text-2xl md:text-3xl font-light transition-all duration-500 ${activeIndex === 2 ? "text-white" : "text-gray-400"}`}
+                  >
+                    <span className="font-medium">Challenging conventions</span> and redefining the rules. Those who
+                    only think in opportunities.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="pt-8">
-              <p className="text-2xl font-medium text-gray-900 mb-4">
-                Get set.
-              </p>
-              <p className="text-3xl font-bold">
-                <span className="underline decoration-red-500 underline-offset-8 text-gray-900">
-                  On Your Marks
-                </span>{" "}
-                <span className="text-gray-600">(formerly TDE)</span>
-              </p>
-              <p className="text-xl mt-4 text-gray-600">
-                Let's shape the next era of marketing.
-              </p>
+            {/* Text item 4 */}
+            <div
+              className={`group transition-all duration-500 ${activeIndex === 3 ? "opacity-100" : "opacity-60"}`}
+              onMouseEnter={() => setActiveIndex(3)}
+            >
+              <div className="flex items-start gap-6 md:gap-12">
+                <div className="flex-none">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 text-gray-500 font-mono text-sm">
+                    04
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p
+                    className={`text-2xl md:text-3xl font-light transition-all duration-500 ${activeIndex === 3 ? "text-white" : "text-gray-400"}`}
+                  >
+                    Embracing the belief that the future of sports marketing{" "}
+                    <span className="font-medium">isn't set in stone</span>.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
+
+       
         </div>
       </div>
-    </div>
-  );
-};
 
-export default Texts;
+      {/* Animated corner accent */}
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse-slow"></div>
+
+      <style jsx>{`
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 0.05;
+          }
+          50% {
+            opacity: 0.15;
+          }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 10s ease-in-out infinite;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+export default Texts
+
